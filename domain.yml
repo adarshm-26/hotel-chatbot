@@ -5,8 +5,9 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
+  - book
+  # - mood_great
+  # - mood_unhappy
   - bot_challenge
 
 responses:
@@ -28,6 +29,46 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+entities:
+  - number
+  - type
+  - date
+
+slots:
+  slot_number:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+  slot_type:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+  slot_from_date:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+  slot_to_date:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+
+forms:
+  booking_form:
+    slot_number:
+    - type: from_entity
+    - entity: number
+    slot_type:
+    - type: from_entity
+    - entity: type
+    slot_from_date:
+    - type: from_entity
+    - entity: date
+    - role: from
+    slot_to_date:
+    - type: from_entity
+    - entity: date
+    - role: from
 
 session_config:
   session_expiration_time: 60

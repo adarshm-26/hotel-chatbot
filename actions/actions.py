@@ -25,3 +25,16 @@
 #         dispatcher.utter_message(text="Hello World!")
 #
 #         return []
+# from rasa.shared.core.slots import Slot
+# from math import ceil
+
+# class NumberOfRoomsSlot(Slot):
+
+#   def feature_dimensionality(self):
+#     return 1
+
+#   def as_feature(self):
+#     r = [0.0] * self.feature_dimensionality()
+#     if self.value:
+#       r = ceil(self.value)
+#     return r
