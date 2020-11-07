@@ -56,7 +56,8 @@ nlu:
     - Could you help me in the booking process
     - I want to book [two]{"entity":"number"} rooms
     - Book [three]{"entity":"number"} [Deluxe]{"entity":"type"} rooms
-    - Book [one]{"entity":"number"} room
+    - Book [one]{"entity":"number"} room from [tomorrow]{"entity":"date", "role":"from"} to [12th November]{"entity":"date", "role":"to"}
+    - Make the booking starting from [14th November]{"entity":"date", "role":"from"} to [20th November]{"entity":"date", "role":"to"}
     - How to book a room?
     - Can you make bookings?
 

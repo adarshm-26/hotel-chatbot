@@ -6,17 +6,11 @@ intents:
   - affirm
   - deny
   - book
-  # - mood_great
-  # - mood_unhappy
   - bot_challenge
 
 responses:
   utter_greet:
   - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
   - text: "Did that help you?"
@@ -30,45 +24,57 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_ask_number:
+  - text: "How many rooms would you like to book?"
+
+  utter_ask_type:
+  - text: "We have Single, Deluxe and Suite rooms available"
+
+  utter_ask_from_date:
+  - text: "When will you start your stay?"
+
+  utter_ask_to_date:
+  - text: "When will you end your stay?"
+
 entities:
   - number
   - type
   - date
 
 slots:
-  slot_number:
+  number:
     type: any
     auto_fill: false
     influence_conversation: false
-  slot_type:
+  type:
     type: any
     auto_fill: false
     influence_conversation: false
-  slot_from_date:
+  from_date:
     type: any
     auto_fill: false
     influence_conversation: false
-  slot_to_date:
+  to_date:
     type: any
     auto_fill: false
     influence_conversation: false
 
 forms:
   booking_form:
-    slot_number:
-    - type: from_entity
-    - entity: number
-    slot_type:
-    - type: from_entity
-    - entity: type
-    slot_from_date:
-    - type: from_entity
-    - entity: date
-    - role: from
-    slot_to_date:
-    - type: from_entity
-    - entity: date
-    - role: from
+    number:
+      - type: from_entity
+        entity: number
+    type:
+      - type: from_entity
+        entity: type
+    from_date:
+      - type: from_entity
+        entity: date
+        role: from
+    to_date:
+      - type: from_entity
+        entity: date
+        role: to
 
 session_config:
   session_expiration_time: 60
