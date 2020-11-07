@@ -9,30 +9,38 @@ stories:
   - action: booking_form
   - active_loop: booking_form
   - active_loop: null
+  - action: utter_booking_details
 
-# - story: happy path
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_great
-#   - action: utter_happy
-
-# - story: sad path 1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: affirm
-#   - action: utter_happy
-
-# - story: sad path 2
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: deny
-#   - action: utter_goodbye
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_what_can_do
+  - intent: book
+  - action: utter_affirmation
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - requested_slot: number
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - requested_slot: type
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_booking_details
+  - intent: affirm
+  - action: utter_anything_else
+  - intent: goodbye
+  - action: utter_goodbye

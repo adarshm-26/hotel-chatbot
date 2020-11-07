@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
+    - Hello, Good morning
 - intent: goodbye
   examples: |
     - good afternoon
@@ -30,7 +29,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
+    - No, its all good
 - intent: affirm
   examples: |
     - yes
@@ -39,7 +38,7 @@ nlu:
     - of course
     - that sounds good
     - correct
-
+    - Indeed
 - intent: deny
   examples: |
     - no
@@ -49,65 +48,36 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: book
   examples: |
     - I would like to make a booking
     - Could you help me in the booking process
-    - I want to book [two]{"entity":"number"} rooms
-    - Book [three]{"entity":"number"} [Deluxe]{"entity":"type"} rooms
-    - Book [one]{"entity":"number"} room from [tomorrow]{"entity":"date", "role":"from"} to [12th November]{"entity":"date", "role":"to"}
-    - Make the booking starting from [14th November]{"entity":"date", "role":"from"} to [20th November]{"entity":"date", "role":"to"}
+    - I want to book [two](number) rooms
+    - Book [three](number) [Deluxe](type) rooms
+    - Book [one](number) room from [tomorrow]{"entity": "date", "role": "from"} to [12th November]{"entity": "date", "role": "to"}
+    - Make the booking starting from [14th November]{"entity": "date", "role": "from"} to [20th November]{"entity": "date", "role": "to"}
     - How to book a room?
     - Can you make bookings?
-
-# - intent: mood_great
-#   examples: |
-#     - perfect
-#     - great
-#     - amazing
-#     - feeling like a king
-#     - wonderful
-#     - I am feeling very good
-#     - I am great
-#     - I am amazing
-#     - I am going to save the world
-#     - super stoked
-#     - extremely good
-#     - so so perfect
-#     - so good
-#     - so perfect
-
-# - intent: mood_unhappy
-#   examples: |
-#     - my day was horrible
-#     - I am sad
-#     - I don't feel very well
-#     - I am disappointed
-#     - super sad
-#     - I'm so sad
-#     - sad
-#     - very sad
-#     - unhappy
-#     - not good
-#     - not very good
-#     - extremly sad
-#     - so saad
-#     - so sad
-
+- intent: set_dates
+  examples: |
+    - Probably [tomorrow]{"entity": "date", "role": "from"}
+    - From [next Saturday]{"entity": "date", "role": "from"}
+    - Starting from [14th November]{"entity": "date", "role": "from"}
+    - Till [Tuesday next week]{"entity": "date", "role": "to"}
+    - To [next Monday]{"entity": "date", "role": "to"}
+    - Until [next Sunday]{"entity": "date", "role": "to"}
+    - By [20 November](date)
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
-- synonym: one
+- synonym: a room
   examples: |
-    - a
-    - single
-    - 1
-
+    - one room
+    - single room
+    - 1 room
 - lookup: type
   examples: |
     - Simple

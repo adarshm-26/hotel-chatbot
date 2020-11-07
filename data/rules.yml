@@ -11,3 +11,10 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+# - rule: Attempt to set dates anytime set_dates intent is invoked
+#   condition:
+#   - active_loop: booking_form
+#   steps:
+#   - intent: set_dates
+#   - slot_

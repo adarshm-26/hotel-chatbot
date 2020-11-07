@@ -1,81 +1,96 @@
-version: "2.0"
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
 
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - book
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_ask_number:
-  - text: "How many rooms would you like to book?"
-
-  utter_ask_type:
-  - text: "We have Single, Deluxe and Suite rooms available"
-
-  utter_ask_from_date:
-  - text: "When will you start your stay?"
-
-  utter_ask_to_date:
-  - text: "When will you end your stay?"
+- goodbye
+- greet
+- affirm
+- book
+- deny
+- bot_challenge
 
 entities:
-  - number
-  - type
-  - date
+- date
+- number
+- type
 
 slots:
+  from_date:
+    type: text
+    auto_fill: false
+    influence_conversation: false
   number:
-    type: any
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  requested_slot:
+    type: text
+    influence_conversation: false
+  to_date:
+    type: text
     auto_fill: false
     influence_conversation: false
   type:
-    type: any
+    type: text
     auto_fill: false
     influence_conversation: false
-  from_date:
-    type: any
-    auto_fill: false
-    influence_conversation: false
-  to_date:
-    type: any
-    auto_fill: false
-    influence_conversation: false
+
+responses:
+  utter_what_can_do:
+  - text: What can I do for you today?
+  utter_affirmation:
+  - text: Sure
+  utter_anything_else:
+  - text: Anything else I can do for you?
+  utter_greet:
+  - text: Hey! How are you?
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_number:
+  - text: How many rooms would you like to book?
+  utter_ask_type:
+  - text: We have Single, Deluxe and Suite rooms available
+  utter_ask_from_date:
+  - text: When will you start your stay?
+  utter_ask_to_date:
+  - text: When will you end your stay?
+  utter_booking_details:
+  - text: "Booking for the following details has been made:\n
+           {number} {type} rooms\n
+           From {from_date} to {to_date}"
+
+actions:
+- utter_affirmation
+- utter_anything_else
+- utter_ask_number
+- utter_ask_to_date
+- utter_booking_details
+- utter_goodbye
+- utter_greet
+- utter_what_can_do
 
 forms:
   booking_form:
     number:
-      - type: from_entity
-        entity: number
+    - type: from_entity
+      entity: number
     type:
-      - type: from_entity
-        entity: type
+    - type: from_entity
+      entity: type
     from_date:
-      - type: from_entity
-        entity: date
-        role: from
+    - type: from_entity
+      entity: date
+      role: from
     to_date:
-      - type: from_entity
-        entity: date
-        role: to
+    - type: from_entity
+      entity: date
+      role: to
 
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+version: '2.0'
