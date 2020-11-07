@@ -58,15 +58,27 @@ nlu:
     - Make the booking starting from [14th November]{"entity": "date", "role": "from"} to [20th November]{"entity": "date", "role": "to"}
     - How to book a room?
     - Can you make bookings?
-- intent: set_dates
+- intent: number
+  examples: |
+    - Two rooms would be fine
+    - A single room
+    - Four
+    - 3
+- intent: type
+  examples: |
+    - the simple one
+    - A Suite, please
+    - Deluxe
+- intent: from_date
   examples: |
     - Probably [tomorrow]{"entity": "date", "role": "from"}
     - From [next Saturday]{"entity": "date", "role": "from"}
     - Starting from [14th November]{"entity": "date", "role": "from"}
+- intent: to_date
+  examples: |
     - Till [Tuesday next week]{"entity": "date", "role": "to"}
     - To [next Monday]{"entity": "date", "role": "to"}
     - Until [next Sunday]{"entity": "date", "role": "to"}
-    - By [20 November](date)
 - intent: bot_challenge
   examples: |
     - are you a bot?

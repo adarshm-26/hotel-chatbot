@@ -2,22 +2,19 @@ version: "2.0"
 
 stories:
 
-- story: book rooms
-  steps: 
-  - intent: book
-  - action: utter_greet
-  - action: booking_form
-  - active_loop: booking_form
-  - active_loop: null
-  - action: utter_booking_details
+# - story: book rooms
+#   steps: 
+#   - intent: book
+#   - action: booking_form
+#   - active_loop: booking_form
+#   - active_loop: null
+#   - action: utter_booking_details
 
-- story: interactive_story_1
+- story: successful booking path 1
   steps:
-  - intent: greet
   - action: utter_greet
   - action: utter_what_can_do
   - intent: book
-  - action: utter_affirmation
   - action: booking_form
   - active_loop: booking_form
   - slot_was_set:
@@ -44,3 +41,13 @@ stories:
   - action: utter_anything_else
   - intent: goodbye
   - action: utter_goodbye
+
+- story: unsuccessful booking path 1
+  steps:
+  - active_loop: booking_form
+  - intent: deny
+  - action: utter_restart_confirmation
+  - intent: affirm
+  - action: action_restart
+  - action: utter_greet
+  - action: utter_what_can_do

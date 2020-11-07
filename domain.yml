@@ -8,7 +8,12 @@ intents:
 - affirm
 - book
 - deny
+- set_dates
 - bot_challenge
+- number
+- type
+- from_date
+- to_date
 
 entities:
 - date
@@ -65,16 +70,22 @@ responses:
   - text: "Booking for the following details has been made:\n
            {number} {type} rooms\n
            From {from_date} to {to_date}"
+  utter_restart_confirmation:
+  - text: Shall we try again?
 
 actions:
 - utter_affirmation
 - utter_anything_else
 - utter_ask_number
+- utter_ask_from_date
 - utter_ask_to_date
+- utter_ask_type
 - utter_booking_details
 - utter_goodbye
 - utter_greet
 - utter_what_can_do
+- utter_restart_confirmation
+- utter_did_that_help
 
 forms:
   booking_form:
