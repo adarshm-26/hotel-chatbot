@@ -1,21 +1,24 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { post } from './Utils';
-import { Container, Nav, Button, FormControl, InputGroup } from 'react-bootstrap';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
 export const Chatbot = () => {
   const [active, setActive] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
 
-  const addMessage = React.useCallback((message) => {
-    let oldMsgs = [...messages];
-    console.log(messages);
-    oldMsgs.push(message);
-    console.log(oldMsgs);
-    setMessages(oldMsgs);
-  }, [messages]);
+  const addMessage = React.useCallback(message => {
+    // let oldMsgs = [...messages];
+    // console.log(messages);
+    // oldMsgs.push(message);
+    // console.log(oldMsgs);
+    setMessages(oldMsgs => [
+      ...oldMsgs,
+      message
+    ]);
+  }, []);
 
-  const sendMessage = React.useCallback(async (message) => {
+  const sendMessage = React.useCallback(async message => {
     let results = await post(
       '/webhooks/rest/webhook', {
         sender: 'user',

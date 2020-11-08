@@ -3,8 +3,14 @@
   text-align: center;
 }
 
+.chatbot {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
 .chatbot-button {
-  border-radius: 50%;
+  border-radius: 500px !important;
 }
 
 .chatbot-chatbox {
@@ -16,7 +22,8 @@
 }
 
 .chatbot-msg-area {
-  flex: 1
+  flex: 1;
+  overflow-y: auto;
 }
 
 .chatbot-msg-pill {
