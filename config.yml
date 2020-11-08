@@ -16,14 +16,14 @@ pipeline:
     max_ngram: 4
   - name: EntitySynonymMapper
   - name: DucklingEntityExtractor
-    dimensions: ["number", "date"]
+    dimensions: ["number", "time"]
     url: "http://localhost:8000"
   - name: DIETClassifier
     epochs: 100
   - name: ResponseSelector
     epochs: 100
   - name: FallbackClassifier
-    threshold: 0.3
+    threshold: 0.55
     ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.

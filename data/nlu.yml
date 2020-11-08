@@ -52,10 +52,10 @@ nlu:
   examples: |
     - I would like to make a booking
     - Could you help me in the booking process
-    - I want to book [two](number) rooms
-    - Book [three](number) [Deluxe](type) rooms
-    - Book [one](number) room from [tomorrow]{"entity": "date", "role": "from"} to [12th November]{"entity": "date", "role": "to"}
-    - Make the booking starting from [14th November]{"entity": "date", "role": "from"} to [20th November]{"entity": "date", "role": "to"}
+    - I want to book two rooms
+    - Book three [Deluxe](type) rooms
+    - Book one room from tomorrow to 12th November
+    - Make the booking starting from 14th November to 20th November
     - How to book a room?
     - Can you make bookings?
 - intent: number
@@ -71,20 +71,22 @@ nlu:
     - Deluxe
 - intent: from_date
   examples: |
-    - Probably [tomorrow]{"entity": "date", "role": "from"}
-    - From [next Saturday]{"entity": "date", "role": "from"}
-    - Starting from [14th November]{"entity": "date", "role": "from"}
+    - Probably tomorrow
+    - From next Saturday
+    - Starting from 14th November
 - intent: to_date
   examples: |
-    - Till [Tuesday next week]{"entity": "date", "role": "to"}
-    - To [next Monday]{"entity": "date", "role": "to"}
-    - Until [next Sunday]{"entity": "date", "role": "to"}
+    - Till Tuesday next week
+    - To next Monday
+    - Until next Sunday
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - what are you?
+    - what can you do?
 - synonym: a room
   examples: |
     - one room

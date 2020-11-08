@@ -6,35 +6,77 @@
 
 
 # This is a simple example for a custom action which utters "Hello World!"
+import datetime
+from typing import Text, List, Any, Dict
+from rasa_sdk import Tracker, FormValidationAction
+from rasa_sdk.events import SlotSet
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
 
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-# from rasa.shared.core.slots import Slot
-# from math import ceil
+class ValidateBookingForm(FormValidationAction):
 
-# class NumberOfRoomsSlot(Slot):
+  def name(self) -> Text:
+    return 'validate_booking_form'
 
-#   def feature_dimensionality(self):
-#     return 1
+  @staticmethod
+  def room_types() -> List[Text]:
+    return ['simple', 'deluxe', 'suite']
 
-#   def as_feature(self):
-#     r = [0.0] * self.feature_dimensionality()
-#     if self.value:
-#       r = ceil(self.value)
-#     return r
+  def validate_number(
+    self,
+    slot_value: Text,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: DomainDict,
+  ) -> Dict[Text, Any]:
+    # Slot value should always be a number
+    if slot_value.isdigit():
+      return { 'number': slot_value }
+    else:
+      return { 'number': None }
+
+  def validate_type(
+    self,
+    slot_value: Text,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: DomainDict,
+  ) -> Dict[Text, Any]:
+    # Slot value should always be one of existing room types
+    if slot_value.lower() in self.room_types():
+      return { 'type': slot_value }
+    else:
+      return { 'type': None }
+
+  def validate_from_date(
+    self,
+    slot_value: Text,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: DomainDict,
+  ) -> Dict[Text, Any]:
+    if isinstance(slot_value, Text):
+      return { 'from_date': slot_value }
+    # Sometimes Duckling extracts a Dict to convey range information
+    # 'from' seems sensible to extract here
+    elif isinstance(slot_value, Dict) and 'from' in slot_value:
+      return { 'from_date': slot_value['from'] }
+    else:
+      return { 'from_date': None }
+  
+  def validate_to_date(
+    self,
+    slot_value: Text,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: DomainDict,
+  ) -> Dict[Text, Any]:
+    if isinstance(slot_value, Text):
+      return { 'to_date': slot_value }
+    # Sometimes Duckling extracts a Dict to convey range information
+    # 'to' seems sensible to extract here
+    elif isinstance(slot_value, Dict) and 'to' in slot_value:
+      return { 'to_date': slot_value['to'] }
+    else:
+      return { 'to_date': None }
+      

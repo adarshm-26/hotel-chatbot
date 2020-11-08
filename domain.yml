@@ -16,7 +16,7 @@ intents:
 - to_date
 
 entities:
-- date
+- time
 - number
 - type
 
@@ -72,6 +72,12 @@ responses:
            From {from_date} to {to_date}"
   utter_restart_confirmation:
   - text: Shall we try again?
+  utter_bot_abilities:
+  - text: "I can help you -\n
+          - Make bookings\n
+          - Schedule cleaning &\n
+          - Answer any queries\n
+            reg. services"
 
 actions:
 - utter_affirmation
@@ -86,6 +92,8 @@ actions:
 - utter_what_can_do
 - utter_restart_confirmation
 - utter_did_that_help
+- utter_bot_abilities
+- validate_restaurant_form
 
 forms:
   booking_form:
@@ -97,11 +105,9 @@ forms:
       entity: type
     from_date:
     - type: from_entity
-      entity: date
-      role: from
+      entity: time
     to_date:
     - type: from_entity
-      entity: date
-      role: to
+      entity: time
 
 version: '2.0'

@@ -2,18 +2,15 @@ version: "2.0"
 
 stories:
 
-# - story: book rooms
-#   steps: 
-#   - intent: book
-#   - action: booking_form
-#   - active_loop: booking_form
-#   - active_loop: null
-#   - action: utter_booking_details
+- story: welcome path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_what_can_do
+  - action: utter_bot_abilities
 
 - story: successful booking path 1
   steps:
-  - action: utter_greet
-  - action: utter_what_can_do
   - intent: book
   - action: booking_form
   - active_loop: booking_form
@@ -50,4 +47,10 @@ stories:
   - intent: affirm
   - action: action_restart
   - action: utter_greet
+  - action: utter_what_can_do
+
+- story: unsuccessful booking path 2
+  steps:
+  - active_loop: null
+  - intent: deny
   - action: utter_what_can_do

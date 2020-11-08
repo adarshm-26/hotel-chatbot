@@ -11,17 +11,4 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
-
-# - rule: Start booking form if book intent is invoked
-#   condition:
-#   - active_loop: null
-#   steps:
-#   - intent: book
-#   - action: booking_form
-
-# - rule: Attempt to set dates anytime set_dates intent is invoked
-#   condition:
-#   - active_loop: booking_form
-#   steps:
-#   - intent: set_dates
-#   - slot_
+  - action: utter_bot_abilities
