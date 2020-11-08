@@ -1,23 +1,24 @@
+version: '2.0'
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 
 intents:
+- from_date
+- to_date
+- affirm
+- deny
+- book
 - goodbye
 - greet
-- affirm
-- book
-- deny
-- set_dates
 - bot_challenge
 - number
 - type
-- from_date
-- to_date
 
 entities:
-- time
 - number
+- time
 - type
 
 slots:
@@ -61,38 +62,32 @@ responses:
   utter_ask_number:
   - text: How many rooms would you like to book?
   utter_ask_type:
-  - text: We have Single, Deluxe and Suite rooms available
+  - text: We have Simple, Deluxe and Suite rooms available
   utter_ask_from_date:
   - text: When will you start your stay?
   utter_ask_to_date:
   - text: When will you end your stay?
   utter_booking_details:
-  - text: "Booking for the following details has been made:\n
-           {number} {type} rooms\n
-           From {from_date} to {to_date}"
+  - text: "Booking for the following details has been made:\n {number} {type} rooms\n From {from_date} to {to_date}"
   utter_restart_confirmation:
   - text: Shall we try again?
   utter_bot_abilities:
-  - text: "I can help you -\n
-          - Make bookings\n
-          - Schedule cleaning &\n
-          - Answer any queries\n
-            reg. services"
+  - text: "I can help you -\n - Make bookings\n - Schedule cleaning &\n - Answer any queries\n reg. services"
 
 actions:
 - utter_affirmation
 - utter_anything_else
-- utter_ask_number
 - utter_ask_from_date
+- utter_ask_number
 - utter_ask_to_date
 - utter_ask_type
 - utter_booking_details
+- utter_bot_abilities
+- utter_did_that_help
 - utter_goodbye
 - utter_greet
-- utter_what_can_do
 - utter_restart_confirmation
-- utter_did_that_help
-- utter_bot_abilities
+- utter_what_can_do
 - validate_restaurant_form
 
 forms:
@@ -109,5 +104,3 @@ forms:
     to_date:
     - type: from_entity
       entity: time
-
-version: '2.0'

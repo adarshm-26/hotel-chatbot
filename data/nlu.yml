@@ -39,6 +39,11 @@ nlu:
     - that sounds good
     - correct
     - Indeed
+    - Ok cool
+    - sure
+    - nice
+    - superb
+    - very well
 - intent: deny
   examples: |
     - no
@@ -48,6 +53,7 @@ nlu:
     - don't like that
     - no way
     - not really
+    - No, its okay
 - intent: book
   examples: |
     - I would like to make a booking
@@ -58,6 +64,7 @@ nlu:
     - Make the booking starting from 14th November to 20th November
     - How to book a room?
     - Can you make bookings?
+    - Book 2 [Suite](type) rooms
 - intent: number
   examples: |
     - Two rooms would be fine
@@ -74,11 +81,13 @@ nlu:
     - Probably tomorrow
     - From next Saturday
     - Starting from 14th November
+    - From tomorrow
 - intent: to_date
   examples: |
     - Till Tuesday next week
     - To next Monday
     - Until next Sunday
+    - By next Thursday
 - intent: bot_challenge
   examples: |
     - are you a bot?

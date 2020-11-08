@@ -43,14 +43,38 @@ stories:
   steps:
   - active_loop: booking_form
   - intent: deny
+  - active_loop: null
   - action: utter_restart_confirmation
   - intent: affirm
   - action: action_restart
   - action: utter_greet
   - action: utter_what_can_do
 
-- story: unsuccessful booking path 2
+- story: interactive_story_1
   steps:
+  - intent: book
+    entities:
+    - type
+    - number
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
   - active_loop: null
+  - action: utter_booking_details
+  - intent: affirm
+  - action: utter_anything_else
   - intent: deny
-  - action: utter_what_can_do
+  - action: utter_goodbye

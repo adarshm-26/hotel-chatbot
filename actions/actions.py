@@ -30,6 +30,7 @@ class ValidateBookingForm(FormValidationAction):
     domain: DomainDict,
   ) -> Dict[Text, Any]:
     # Slot value should always be a number
+    raise TypeError('Reached number validation')
     if slot_value.isdigit():
       return { 'number': slot_value }
     else:
