@@ -30,9 +30,10 @@ class ValidateBookingForm(FormValidationAction):
     domain: DomainDict,
   ) -> Dict[Text, Any]:
     # Slot value should always be a number
-    raise TypeError('Reached number validation')
-    if slot_value.isdigit():
+    if isinstance(slot_value, int):
       return { 'number': slot_value }
+    elif isinstance(slot_value, Text) and slot_value.isdigit():
+      return { 'number': int(slot_value) }
     else:
       return { 'number': None }
 
@@ -45,7 +46,7 @@ class ValidateBookingForm(FormValidationAction):
   ) -> Dict[Text, Any]:
     # Slot value should always be one of existing room types
     if slot_value.lower() in self.room_types():
-      return { 'type': slot_value }
+      return { 'type': slot_value.lower() }
     else:
       return { 'type': None }
 

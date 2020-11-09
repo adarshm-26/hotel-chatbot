@@ -72,7 +72,7 @@ responses:
   utter_restart_confirmation:
   - text: Shall we try again?
   utter_bot_abilities:
-  - text: "I can help you -\n - Make bookings\n - Schedule cleaning &\n - Answer any queries\n reg. services"
+  - text: "I can help you -\n - Make bookings\n - Schedule cleaning &\n - Answer any queries\n reg. our services"
 
 actions:
 - utter_affirmation
@@ -88,7 +88,7 @@ actions:
 - utter_greet
 - utter_restart_confirmation
 - utter_what_can_do
-- validate_restaurant_form
+- validate_booking_form
 
 forms:
   booking_form:
