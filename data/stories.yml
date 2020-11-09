@@ -109,3 +109,66 @@ stories:
   - action: utter_anything_else
   - intent: deny
   - action: utter_goodbye
+
+- story: schedule cleaning story 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: cleaning_required
+  - action: utter_affirmation
+  - action: cleaning_form
+  - active_loop: cleaning_form
+  - slot_was_set:
+    - requested_slot: cleaning_time
+  - intent: cleaning_time
+    entities:
+    - time
+  - slot_was_set:
+    - cleaning_time
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_cleaning_schedule
+  - intent: affirm
+
+- story: schedule cleaning story 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_bot_abilities
+  - action: utter_what_can_do
+  - intent: cleaning_required
+  - action: utter_affirmation
+  - action: cleaning_form
+  - active_loop: cleaning_form
+  - slot_was_set:
+    - requested_slot: cleaning_time
+  - slot_was_set:
+    - cleaning_time
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_cleaning_schedule
+  - action: utter_anything_else
+  - intent: deny
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: know_restaurant_availability
+  - action: utter_restaurant_availability
+  - intent: know_restaurant_timings
+  - action: utter_restaurant_timings
+  - intent: know_restaurant_timings
+  - action: utter_restaurant_timings
+  - intent: know_breakfast_availability
+  - action: utter_breakfast_availability
+  - intent: know_breakfast_timings
+  - action: utter_breakfast_timings
+  - intent: know_checkout_timings
+  - action: utter_checkout_timings
+  - intent: know_checkin_timings
+  - action: utter_checkin_timings
+  - intent: affirm

@@ -44,6 +44,8 @@ nlu:
     - nice
     - superb
     - very well
+    - ok cool
+    - okay
 - intent: deny
   examples: |
     - no
@@ -79,6 +81,8 @@ nlu:
     - Where do i keep the trash
     - I need my room cleaned
     - What about cleaning services?
+    - I am fine, can you schedule cleaning for my room?
+    - Please clean my room
 - intent: cleaning_time
   examples: |
     - Can you send someone right now?
@@ -89,6 +93,8 @@ nlu:
     - By 5pm or later
     - After 6pm
     - During afternoon hours
+    - After five hours
+    - send someone right now
 - intent: number
   examples: |
     - Two rooms would be fine
@@ -101,9 +107,6 @@ nlu:
     - A [Suite](type), please
     - [Deluxe](type)
     - [simple](type) will do
-# - intent: from_to_date
-#   examples: |
-#     - 
 - intent: from_date
   examples: |
     - Probably tomorrow
@@ -124,6 +127,65 @@ nlu:
     - am I talking to a human?
     - what are you?
     - what can you do?
+- intent: know_checkin_timings
+  examples: |
+    - when can I check-in?
+    - What is the checkin time?
+    - what is checkin policy here?
+    - check in time?
+    - Can i checkin 8pm tomorrow?
+    - and checkin time?
+- intent: know_checkout_timings
+  examples: |
+    - when can we check-out?
+    - What is checkout timing?
+    - checkout policy ?
+    - Time to checkout ?
+    - can I checkout by evening today?
+    - Checkin checkout timings?
+- intent: know_cancellation_steps
+  examples: |
+    - How to cancel reservation?
+    - Steps for cancelling?
+    - Please cancel my reservation
+    - Cancel my booking
+    - Where can I cancel reservations?
+- intent: know_cancellation_policy
+  examples: |
+    - What is the cancellation policy here?
+    - Cancellation policy??
+    - Any rules for cancellation?
+    - Terms regarding cancellation?
+    - Conditions for cancelling a booking?
+- intent: know_restaurant_timings
+  examples: |
+    - timing of your restaurant?
+    - when does the restaurant open?
+    - opening and closing time of restaurant
+    - restaurant closes at ?
+    - What are the timings of your restaurant?
+- intent: know_breakfast_timings
+  examples: |
+    - when can i get breakfast?
+    - breakfast timings?
+    - i need breakfast
+    - can i get breakfast now?
+    - may i know its timings?
+- intent: know_breakfast_availability
+  examples: |
+    - what is the breakfast policy?
+    - do i get breakfast?
+    - is there a breakfast policy?
+    - does the hotel offer breakfast?
+    - free breakfast??
+    - is there a breakfast option?
+- intent: know_restaurant_availability
+  examples: |
+    - does the hotel have a restaurant
+    - is there a restaurant here?
+    - any restaurant close by?
+    - feeling hungry
+    - where can i get food?
 - synonym: a room
   examples: |
     - one room

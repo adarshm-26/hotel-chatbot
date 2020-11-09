@@ -2,23 +2,35 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- know_breakfast_availability
+- affirm
 - greet
+- know_restaurant_timings
+- know_checkout_timings
+- know_checkin_timings
+- know_restaurant_availability
+- know_breakfast_timings
+- cleaning_time
+- deny
+- cleaning_required
 - book
 - type
 - from_date
 - to_date
-- deny
-- affirm
 - goodbye
 - bot_challenge
 - number
-- cleaning_required
-- cleaning_time
+- know_cancellation_steps
+- know_cancellation_policy
 entities:
 - number
 - time
 - type
 slots:
+  cleaning_time:
+    type: text
+    auto_fill: false
+    influence_conversation: false
   from_date:
     type: text
     auto_fill: false
@@ -35,10 +47,6 @@ slots:
     auto_fill: false
     influence_conversation: false
   type:
-    type: text
-    auto_fill: false
-    influence_conversation: false
-  cleaning_time:
     type: text
     auto_fill: false
     influence_conversation: false
@@ -77,23 +85,48 @@ responses:
   - text: When shall I arrange for cleaning?
   utter_cleaning_schedule:
   - text: I have scheduled cleaning for {cleaning_time}
+  utter_checkin_timings:
+  - text: "Check-in time starts at 4 PM.\nMinimum check-in age is 21.\nPlease contact the reception for early check-in requests."
+  utter_checkout_timings:
+  - text: "Check-out time is 11 AM.\nPlease contact the reception for late checkout requests."
+  utter_cancellation_policy:
+  - text: "The booking deposit is refundable if the cancellation occurs at least 15 days before arrival.\nFor cancellations made after this limit, a penalty will be imposed based on the cancellation policy."
+  utter_cancellation_steps:
+  - text: "To cancel a reservation, select the “Reservations” link from the homepage.\n On the Reservations page, under the heading ‘View, Change or Cancel a Reservation,’ enter your confirmation number, and either the last name on the reservation or the last four digits of the credit card used to make the reservation."
+  utter_restaurant_availability:
+  - text: Yes, the hotel has a restaurant called the Zephyr Bar. With our menu we strive to reflect the historic art and the spirit of our neighborhood by offering a glimpse into what makes our area unique.
+  utter_restaurant_timings:
+  - text: Our restaurant serves a dazzling 24-hour menu.
+  utter_breakfast_timings:
+  - text: Monday through Friday breakfast is 6 am to 9 am. On Saturday and Sunday, we are open from 7 am to 10:30 am.
+  utter_breakfast_availability:
+  - text: The hotel provides its guests with a free made-to-order breakfast each morning.
 actions:
 - utter_affirmation
 - utter_anything_else
+- utter_ask_cleaning_time
 - utter_ask_from_date
 - utter_ask_number
 - utter_ask_to_date
 - utter_ask_type
 - utter_booking_details
 - utter_bot_abilities
+- utter_breakfast_availability
+- utter_breakfast_timings
+- utter_cancellation_policy
+- utter_cancellation_steps
+- utter_checkin_timings
+- utter_checkout_timings
+- utter_cleaning_schedule
 - utter_did_that_help
 - utter_goodbye
 - utter_greet
 - utter_restart_confirmation
+- utter_restaurant_availability
+- utter_restaurant_timings
 - utter_what_can_do
-- utter_ask_cleaning_time
-- utter_cleaning_schedule
 - validate_booking_form
+- validate_cleaning_form
 forms:
   booking_form:
     number:
@@ -106,6 +139,10 @@ forms:
     - type: from_entity
       entity: time
     to_date:
+    - type: from_entity
+      entity: time
+  cleaning_form:
+    cleaning_time:
     - type: from_entity
       entity: time
 version: '2.0'

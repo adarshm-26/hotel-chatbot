@@ -12,3 +12,43 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
   - action: utter_bot_abilities
+
+- rule: FAQ Check-in timings
+  steps:
+  - intent: know_checkin_timings
+  - action: utter_checkin_timings
+
+- rule: FAQ Check-out timings
+  steps:
+  - intent: know_checkout_timings
+  - action: utter_checkout_timings
+
+- rule: FAQ Cancel reservation
+  steps:
+  - intent: know_cancellation_steps
+  - action: utter_cancellation_steps
+
+- rule: FAQ Cancellation policy
+  steps:
+  - intent: know_cancellation_policy
+  - action: utter_cancellation_policy
+
+- rule: FAQ Restaurant Availability
+  steps:
+  - intent: know_restaurant_availability
+  - action: utter_restaurant_availability
+
+- rule: FAQ Breakfast Availability
+  steps:
+  - intent: know_breakfast_availability
+  - action: utter_breakfast_availability
+
+- rule: FAQ Breakfast timings
+  steps:
+  - intent: know_breakfast_timings
+  - action: utter_breakfast_timings
+
+- rule: FAQ Restaurant timings
+  steps:
+  - intent: know_restaurant_timings
+  - action: utter_restaurant_timings
