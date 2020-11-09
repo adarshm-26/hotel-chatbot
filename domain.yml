@@ -1,26 +1,23 @@
-version: '2.0'
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-
 intents:
+- greet
+- book
+- type
 - from_date
 - to_date
-- affirm
 - deny
-- book
+- affirm
 - goodbye
-- greet
 - bot_challenge
 - number
-- type
-
+- cleaning_required
+- cleaning_time
 entities:
 - number
 - time
 - type
-
 slots:
   from_date:
     type: text
@@ -41,7 +38,10 @@ slots:
     type: text
     auto_fill: false
     influence_conversation: false
-
+  cleaning_time:
+    type: text
+    auto_fill: false
+    influence_conversation: false
 responses:
   utter_what_can_do:
   - text: What can I do for you today?
@@ -73,7 +73,10 @@ responses:
   - text: Shall we try again?
   utter_bot_abilities:
   - text: "I can help you -\n - Make bookings\n - Schedule cleaning &\n - Answer any queries\n reg. our services"
-
+  utter_ask_cleaning_time:
+  - text: When shall I arrange for cleaning?
+  utter_cleaning_schedule:
+  - text: I have scheduled cleaning for {cleaning_time}
 actions:
 - utter_affirmation
 - utter_anything_else
@@ -88,8 +91,9 @@ actions:
 - utter_greet
 - utter_restart_confirmation
 - utter_what_can_do
+- utter_ask_cleaning_time
+- utter_cleaning_schedule
 - validate_booking_form
-
 forms:
   booking_form:
     number:
@@ -104,3 +108,4 @@ forms:
     to_date:
     - type: from_entity
       entity: time
+version: '2.0'

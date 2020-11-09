@@ -6,8 +6,8 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - action: utter_what_can_do
   - action: utter_bot_abilities
+  - action: utter_what_can_do
 
 - story: successful booking path 1
   steps:
@@ -34,7 +34,6 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: utter_booking_details
-  - intent: affirm
   - action: utter_anything_else
   - intent: goodbye
   - action: utter_goodbye
@@ -74,7 +73,39 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: utter_booking_details
-  - intent: affirm
+  - action: utter_anything_else
+  - intent: deny
+  - action: utter_goodbye
+
+- story: interactive_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_what_can_do
+  - action: utter_bot_abilities
+  - intent: book
+    entities:
+    - number
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - requested_slot: type
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_booking_details
   - action: utter_anything_else
   - intent: deny
   - action: utter_goodbye

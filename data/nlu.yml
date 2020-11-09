@@ -54,6 +54,7 @@ nlu:
     - no way
     - not really
     - No, its okay
+    - no its fine
 - intent: book
   examples: |
     - I would like to make a booking
@@ -65,6 +66,29 @@ nlu:
     - How to book a room?
     - Can you make bookings?
     - Book 2 [Suite](type) rooms
+    - I want to book rooms for 2 please
+- intent: cleaning_required
+  examples: |
+    - I want to have my room cleaned
+    - Can you send someone for cleaning
+    - Schedule cleaning please
+    - When does the cleaning service start?
+    - When do you clean the rooms?
+    - Send someone for cleaning please
+    - My room has become dirty
+    - Where do i keep the trash
+    - I need my room cleaned
+    - What about cleaning services?
+- intent: cleaning_time
+  examples: |
+    - Can you send someone right now?
+    - Can you send someone after an hour?
+    - Send after five hours
+    - Send in the evening
+    - Schedule it for the evening
+    - By 5pm or later
+    - After 6pm
+    - During afternoon hours
 - intent: number
   examples: |
     - Two rooms would be fine
@@ -73,15 +97,19 @@ nlu:
     - 3
 - intent: type
   examples: |
-    - the simple one
-    - A Suite, please
-    - Deluxe
+    - the [simple](type) one
+    - A [Suite](type), please
+    - [Deluxe](type)
+    - [simple](type) will do
+# - intent: from_to_date
+#   examples: |
+#     - 
 - intent: from_date
   examples: |
     - Probably tomorrow
     - From next Saturday
     - Starting from 14th November
-    - From tomorrow
+    - from tomorrow
 - intent: to_date
   examples: |
     - Till Tuesday next week

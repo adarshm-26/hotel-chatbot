@@ -8,10 +8,8 @@ export const Chatbot = () => {
   const [messages, setMessages] = React.useState([]);
 
   const addMessage = React.useCallback(message => {
-    // let oldMsgs = [...messages];
-    // console.log(messages);
-    // oldMsgs.push(message);
-    // console.log(oldMsgs);
+    if (message.text.trim() === '')
+      return;
     setMessages(oldMsgs => [
       ...oldMsgs,
       message
@@ -39,9 +37,15 @@ export const Chatbot = () => {
   return <div className='chatbot-chatbox'>
     <MessageArea messages={messages}/>
     <Textbox onSend={ async (message) => {
-      addMessage(message);
+      addMessage({
+        sender: 'user',
+        text: message
+      });
       let results = await sendMessage(message);
-      results.forEach(result => addMessage(result.text));
+      results.forEach(result => addMessage({
+        sender: 'chatbot',
+        text: result.text
+      }));
     }}/>
   </div>;
 }
@@ -49,10 +53,20 @@ export const Chatbot = () => {
 const MessageArea = ({ messages }) => {
   return <div className='chatbot-msg-area'>
     {
-      messages.map((value, index) => 
-        <div key={index} 
-        className='chatbot-msg-pill'>
-          {value}
+      messages.map((value, index) =>
+        value.sender === 'user' ? 
+        <div className='chatbot-msg-row'>
+          <div style={{ flex: 1 }}></div>
+          <div key={index} 
+          className='chatbot-msg-pill-user'>
+            {value.text}
+          </div>
+        </div> :
+        <div className='chatbot-msg-row'>
+          <div key={index}
+          className='chatbot-msg-pill-bot'>
+            {value.text}
+          </div>
         </div>
       )
     }
