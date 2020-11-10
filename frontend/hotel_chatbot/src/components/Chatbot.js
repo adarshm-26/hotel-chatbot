@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { post } from './Utils';
-import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { Button, FormControl, InputGroup, ButtonGroup } from 'react-bootstrap';
 
 export const Chatbot = () => {
   const [active, setActive] = React.useState(false);
@@ -16,20 +16,21 @@ export const Chatbot = () => {
     ]);
   }, []);
 
-  const sendMessage = React.useCallback(async message => {
-    addMessage({
-      sender: 'user',
-      text: message
-    });
-    let results = await post(
-      '/webhooks/rest/webhook', {
+  const sendMessage = React.useCallback(
+    async (message, quiet = false, command = '') => {
+      addMessage({
         sender: 'user',
-        message: message
+        text: message
       });
-    results.forEach(result => addMessage({
-      sender: 'chatbot',
-      text: result.text
-    }));
+      let results = await post(
+        '/webhooks/rest/webhook', {
+          sender: 'user',
+          message: quiet ? command : message
+        });
+      results.forEach(result => addMessage({
+        sender: 'bot',
+        ...result
+      }));
   }, [addMessage]);
   
   if (!active) {
@@ -48,8 +49,8 @@ export const Chatbot = () => {
         sendMessage('/restart');
         setMessages([]);
       }}/>
-    <MessageArea messages={messages}/>
-    <Textbox onSend={(message) => sendMessage(message)}/>
+    <MessageArea messages={messages} onSend={sendMessage} />
+    <Textbox onSend={sendMessage}/>
   </div>;
 }
 
@@ -74,27 +75,40 @@ const TitleBar = ({ title, onClose, onReset }) => {
   </div>
 }
 
-const MessageArea = ({ messages }) => {
+const MessagePill = ({ text, sender }) => {
+  return <div className='chatbot-msg-row'>
+    {sender === 'user' ? 
+      <div style={{ flex: 1 }}></div> : <></>}
+    <div className={`chatbot-msg-pill-${sender}`}>
+      {text}
+    </div>
+  </div>
+}
+
+const MessageArea = ({ messages, onSend }) => {
+  console.log(messages[0]?.buttons);
   return <div className='chatbot-msg-area'>
-    {
-      messages.map((value, index) =>
-        value.sender === 'user' ? 
-        <div className='chatbot-msg-row'>
-          {/* Flexed out div for maintaining pill size */}
-          <div style={{ flex: 1 }}></div>
-          <div key={index} 
-          className='chatbot-msg-pill-user'>
-            {value.text}
-          </div>
-        </div> :
-        <div className='chatbot-msg-row'>
-          <div key={index}
-          className='chatbot-msg-pill-bot'>
-            {value.text}
-          </div>
-        </div>
-      )
-    }
+  {/* Handle buttons feature */}
+  { messages[0]?.buttons ?
+    <ButtonGroup>
+    { messages[0].buttons.map((button, index) => 
+      <Button className='chatbot-button-special'
+        variant='outline-success'
+        size='sm'
+        key={`button-${index}`}
+        onClick={() => {
+          // Send button payload instead
+          onSend(button.title, true, button.payload);
+        }}>{button.title}</Button>
+    )}
+    </ButtonGroup> : <></>
+  }
+  { messages.map((message, index) => 
+      <MessagePill 
+        key={`message-${index}`}
+        text={message.text}
+        sender={message.sender}/>
+  )}
   </div>;
 }
 
