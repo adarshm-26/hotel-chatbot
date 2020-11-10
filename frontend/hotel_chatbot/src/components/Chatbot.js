@@ -11,19 +11,26 @@ export const Chatbot = () => {
     if (message.text.trim() === '')
       return;
     setMessages(oldMsgs => [
-      ...oldMsgs,
-      message
+      message,
+      ...oldMsgs
     ]);
   }, []);
 
   const sendMessage = React.useCallback(async message => {
+    addMessage({
+      sender: 'user',
+      text: message
+    });
     let results = await post(
       '/webhooks/rest/webhook', {
         sender: 'user',
         message: message
       });
-    return results;
-  }, []);
+    results.forEach(result => addMessage({
+      sender: 'chatbot',
+      text: result.text
+    }));
+  }, [addMessage]);
   
   if (!active) {
     return <Button 
@@ -35,19 +42,36 @@ export const Chatbot = () => {
   }
   
   return <div className='chatbot-chatbox'>
+    <TitleBar title='Hotel Chatbot' 
+      onClose={() => setActive(false)}
+      onReset={() => {
+        sendMessage('/restart');
+        setMessages([]);
+      }}/>
     <MessageArea messages={messages}/>
-    <Textbox onSend={ async (message) => {
-      addMessage({
-        sender: 'user',
-        text: message
-      });
-      let results = await sendMessage(message);
-      results.forEach(result => addMessage({
-        sender: 'chatbot',
-        text: result.text
-      }));
-    }}/>
+    <Textbox onSend={(message) => sendMessage(message)}/>
   </div>;
+}
+
+const TitleBar = ({ title, onClose, onReset }) => {
+  return <div className='chatbot-titlebar'>
+    <div style={{ margin: '10px' }}>{title}</div>
+    <div style={{ flex: 1 }}></div>
+    <div>
+      <Button className='chatbot-button-special'
+        variant='outline-success'
+        size='sm'
+        onClick={onReset}>
+        Reset
+      </Button>
+      <Button className='chatbot-button-special'
+        variant='outline-success'
+        size='sm'
+        onClick={onClose}>
+        Close
+      </Button>
+    </div>
+  </div>
 }
 
 const MessageArea = ({ messages }) => {
@@ -56,6 +80,7 @@ const MessageArea = ({ messages }) => {
       messages.map((value, index) =>
         value.sender === 'user' ? 
         <div className='chatbot-msg-row'>
+          {/* Flexed out div for maintaining pill size */}
           <div style={{ flex: 1 }}></div>
           <div key={index} 
           className='chatbot-msg-pill-user'>
@@ -70,29 +95,42 @@ const MessageArea = ({ messages }) => {
         </div>
       )
     }
-  </div>
+  </div>;
 }
 
 const Textbox = ({ onSend }) => {
   const [message, setMessage] = React.useState('');
 
-  return <div className='chatbot-textbox'>
-    <InputGroup>
-      <FormControl
-        placeholder='Write something !'
-        value={message}
-        onChange={(e) => {
+  const send = React.useCallback((message) => {
+    // Send message
+    onSend(message);
+    // Clear text box
+    setMessage('');
+  }, [onSend]);
+
+  return <InputGroup>
+    <FormControl className='chatbot-textbox'
+      placeholder='Talk to our assistant'
+      value={message}
+      onChange={(e) => {
+        e.preventDefault();
+        setMessage(e.target.value);
+      }}
+      onKeyUp={(e) => {
+        // Handle 'Enter' key press
+        if (e.keyCode === 13) {
           e.preventDefault();
-          setMessage(e.target.value);
-        }}
-        aria-label='Write messages'
-        aria-describedby='basic-addon2'
-      />
-      <InputGroup.Append>
-        <Button 
+          send(message);
+        }
+      }}
+      aria-label='Write messages'
+      aria-describedby='basic-addon2'
+    />
+    <InputGroup.Append>
+      <Button className='chatbot-button-send'
         variant='outline-success'
-        onClick={() => onSend(message)}>Send</Button>
-      </InputGroup.Append>
-    </InputGroup>
-  </div>
+        size='sm'
+        onClick={() => send(message)}>Send</Button>
+    </InputGroup.Append>
+  </InputGroup>;
 }

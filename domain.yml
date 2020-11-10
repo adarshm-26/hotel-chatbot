@@ -71,6 +71,13 @@ responses:
   - text: How many rooms would you like to book?
   utter_ask_type:
   - text: We have Simple, Deluxe and Suite rooms available
+    buttons:
+    - title: Simple
+      payload: /type{"type":"Simple"}
+    - title: Deluxe
+      payload: /type{"type":"Deluxe"}
+    - title: Suite
+      payload: /type{"type":"Suite"}
   utter_ask_from_date:
   - text: When will you start your stay?
   utter_ask_to_date:
