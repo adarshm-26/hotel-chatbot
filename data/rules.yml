@@ -7,6 +7,19 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
+- rule: Start cleaning form for cleaning_required intent
+  steps:
+  - intent: cleaning_required
+  - action: utter_affirmation
+  - action: cleaning_form
+  - active_loop: cleaning_form
+
+- rule: Start booking form for book intent
+  steps:
+  - intent: book
+  - action: booking_form
+  - active_loop: booking_form
+
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
   - intent: bot_challenge

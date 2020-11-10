@@ -2,22 +2,22 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- know_checkout_timings
+- goodbye
+- cleaning_required
+- cleaning_time
 - know_breakfast_availability
 - affirm
 - greet
 - know_restaurant_timings
-- know_checkout_timings
 - know_checkin_timings
 - know_restaurant_availability
 - know_breakfast_timings
-- cleaning_time
 - deny
-- cleaning_required
 - book
 - type
 - from_date
 - to_date
-- goodbye
 - bot_challenge
 - number
 - know_cancellation_steps

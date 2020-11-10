@@ -30,6 +30,7 @@ nlu:
     - bye bye
     - see you later
     - No, its all good
+    - Ok, bye
 - intent: affirm
   examples: |
     - yes
@@ -83,6 +84,7 @@ nlu:
     - What about cleaning services?
     - I am fine, can you schedule cleaning for my room?
     - Please clean my room
+    - Clean my room please
 - intent: cleaning_time
   examples: |
     - Can you send someone right now?
@@ -95,6 +97,7 @@ nlu:
     - During afternoon hours
     - After five hours
     - send someone right now
+    - in an hour
 - intent: number
   examples: |
     - Two rooms would be fine
@@ -143,6 +146,7 @@ nlu:
     - Time to checkout ?
     - can I checkout by evening today?
     - Checkin checkout timings?
+    - yes, can you tell me the checkout times
 - intent: know_cancellation_steps
   examples: |
     - How to cancel reservation?
