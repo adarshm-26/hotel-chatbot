@@ -4,6 +4,7 @@ from rasa_sdk import Tracker, FormValidationAction
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+from rasa_sdk.events import ActionExecuted
 
 class ValidateBookingForm(FormValidationAction):
 
@@ -66,7 +67,8 @@ class ValidateBookingForm(FormValidationAction):
 
     if isinstance(slot_value, Text):
       temp_date = slot_value
-    # Sometimes Duckling extracts a Dict to convey range information
+    # Sometimes Duckling extracts a Dict 
+    # to convey range information
     elif isinstance(slot_value, Dict):
       # 'from' seems sensible to extract first here
       if 'from' in slot_value and slot_value['from'] is not None:
@@ -76,7 +78,7 @@ class ValidateBookingForm(FormValidationAction):
         temp_date = slot_value['to']
 
     if temp_date:
-      validated_date = temp_date.split('T')[0]
+      validated_date = convert_to_readable(temp_date)
     return { 'from_date': validated_date }
   
   def validate_to_date(
@@ -92,7 +94,8 @@ class ValidateBookingForm(FormValidationAction):
 
     if isinstance(slot_value, Text):
       temp_date = slot_value
-    # Sometimes Duckling extracts a Dict to convey range information
+    # Sometimes Duckling extracts a Dict 
+    # to convey range information
     elif isinstance(slot_value, Dict):
       # 'to' seems sensible to extract first here
       if 'to' in slot_value and slot_value['to'] is not None:
@@ -102,7 +105,7 @@ class ValidateBookingForm(FormValidationAction):
         temp_date = slot_value['from']
 
     if temp_date:
-      validated_date = temp_date.split('T')[0]
+      validated_date = convert_to_readable(temp_date)
     return { 'to_date': validated_date }
       
 class ValidateCleaningForm(FormValidationAction):
@@ -132,6 +135,38 @@ class ValidateCleaningForm(FormValidationAction):
         temp_time = slot_value['from']
     
     if temp_time:
-      validated_time = ' '.join(temp_time.split('T'))
+      validated_time = convert_to_readable(temp_time, True)
     return { 'cleaning_time': validated_time }
-      
+
+def convert_to_readable(date, parse_time = False):
+  """Utility function to convert dates 
+  to easily understandable form"""
+
+  days_of_week = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ]
+
+  month_short_names = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ]
+
+  parsed_date = parser.parse(date)
+  day_of_week = days_of_week[parsed_date.weekday()]
+  month_name = month_short_names[parsed_date.month]
+  
+  time_part = ''
+  if parse_time:
+    parsed_time = parsed_date.time()
+    time_part += ' at ' + str(parsed_time.hour % 12)
+    if parsed_time.minute % 15 is 0:
+      time_part += ':' + str(parsed_time.minute)
+    time_part += 'PM' if parsed_time.hour >= 12 else 'AM'
+
+  return day_of_week + ' the ' + str(parsed_date.day) + 'th ' + month_name + time_part

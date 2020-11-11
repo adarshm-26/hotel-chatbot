@@ -81,8 +81,8 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - action: utter_what_can_do
   - action: utter_bot_abilities
+  - action: utter_what_can_do
   - intent: book
     entities:
     - number
@@ -112,8 +112,6 @@ stories:
 
 - story: schedule cleaning story 1
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: cleaning_required
   - action: utter_affirmation
   - action: cleaning_form
@@ -157,6 +155,8 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
+  - action: utter_bot_abilities
+  - action: utter_what_can_do
   - intent: know_restaurant_availability
   - action: utter_restaurant_availability
   - intent: know_restaurant_timings
@@ -171,7 +171,6 @@ stories:
   - action: utter_checkout_timings
   - intent: know_checkin_timings
   - action: utter_checkin_timings
-  - intent: affirm
 
 - story: schedule cleaning story 3
   steps:
