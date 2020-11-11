@@ -36,6 +36,12 @@ rules:
   - intent: know_checkout_timings
   - action: utter_checkout_timings
 
+- rule: FAQ Check-in and Check-out times
+  steps:
+  - intent: know_checkin_checkout_times
+  - action: utter_checkin_timings
+  - action: utter_checkout_timings
+
 - rule: FAQ Cancel reservation
   steps:
   - intent: know_cancellation_steps

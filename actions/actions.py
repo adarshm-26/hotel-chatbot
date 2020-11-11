@@ -159,14 +159,15 @@ def convert_to_readable(date, parse_time = False):
 
   parsed_date = parser.parse(date)
   day_of_week = days_of_week[parsed_date.weekday()]
-  month_name = month_short_names[parsed_date.month]
+  month_name = month_short_names[parsed_date.month-1]
   
+  readable_datetime = "{} the {}th {} {}"
   time_part = ''
   if parse_time:
     parsed_time = parsed_date.time()
-    time_part += ' at ' + str(parsed_time.hour % 12)
+    time_part += " at {}".format(parsed_time.hour % 12)
     if parsed_time.minute % 15 is 0:
-      time_part += ':' + str(parsed_time.minute)
+      time_part += ":{:02}".format(parsed_time.minute)
     time_part += 'PM' if parsed_time.hour >= 12 else 'AM'
 
-  return day_of_week + ' the ' + str(parsed_date.day) + 'th ' + month_name + time_part
+  return readable_datetime.format(day_of_week, parsed_date.day, month_name, time_part)

@@ -46,6 +46,7 @@ nlu:
     - very well
     - ok cool
     - okay
+    - okay cool
 - intent: deny
   examples: |
     - no
@@ -57,6 +58,7 @@ nlu:
     - not really
     - No, its okay
     - no its fine
+    - no its okay
 - intent: book
   examples: |
     - I would like to make a booking
@@ -69,6 +71,8 @@ nlu:
     - Can you make bookings?
     - Book 2 [Suite](type) rooms
     - I want to book rooms for 2 please
+    - make bookings please
+    - book [a]{"entity": "number", "value": "1"} [simple](type) room please
 - intent: cleaning_required
   examples: |
     - I want to have my room cleaned
@@ -103,6 +107,7 @@ nlu:
     - A single room
     - Four
     - 3
+    - 4
 - intent: type
   examples: |
     - the [simple](type) one
@@ -115,12 +120,16 @@ nlu:
     - From next Saturday
     - Starting from 14th November
     - from tomorrow
+    - tomorrow
+    - friday probably
+    - from day after tomorrow
 - intent: to_date
   examples: |
     - Till Tuesday next week
     - To next Monday
     - Until next Sunday
     - By next Thursday
+    - on saturday
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -137,6 +146,7 @@ nlu:
     - check in time?
     - Can i checkin 8pm tomorrow?
     - and checkin time?
+    - what is the checkin time
 - intent: know_checkout_timings
   examples: |
     - when can we check-out?
@@ -146,6 +156,16 @@ nlu:
     - can I checkout by evening today?
     - Checkin checkout timings?
     - yes, can you tell me the checkout times
+    - when is the checkout time
+    - tell me your checkout timings
+- intent: know_checkin_checkout_times
+  examples: |
+    - in and out times?
+    - in out timings
+    - what is checkin and checkout time
+    - checkin and checkout times?
+    - when to checkin and checkout
+    - how are the checkin checkout rules
 - intent: know_cancellation_steps
   examples: |
     - How to cancel reservation?
@@ -167,6 +187,7 @@ nlu:
     - opening and closing time of restaurant
     - restaurant closes at ?
     - What are the timings of your restaurant?
+    - restuarant timings?
 - intent: know_breakfast_timings
   examples: |
     - when can i get breakfast?
@@ -189,6 +210,8 @@ nlu:
     - any restaurant close by?
     - feeling hungry
     - where can i get food?
+    - resturant nearby?
+    - any restaurants nearby?
 - synonym: a room
   examples: |
     - one room

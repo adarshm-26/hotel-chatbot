@@ -191,3 +191,86 @@ stories:
   - action: utter_checkout_timings
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: book
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - requested_slot: number
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - requested_slot: type
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - requested_slot: from_date
+  - intent: know_checkin_timings
+  - action: utter_checkin_timings
+  - action: booking_form
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - intent: know_checkout_timings
+  - action: utter_checkout_timings
+  - action: booking_form
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_booking_details
+  - action: utter_anything_else
+  - intent: know_restaurant_availability
+  - action: utter_restaurant_availability
+  - intent: know_restaurant_timings
+  - action: utter_restaurant_timings
+  - intent: affirm
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_bot_abilities
+  - action: utter_what_can_do
+  - intent: book
+    entities:
+    - number
+    - type
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - requested_slot: from_date
+  - intent: know_checkout_timings
+  - action: utter_checkout_timings
+  - action: booking_form
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - intent: know_restaurant_availability
+  - action: utter_restaurant_availability
+  - action: booking_form
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_booking_details
+  - action: utter_anything_else
+  - intent: deny
