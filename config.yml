@@ -13,6 +13,7 @@ pipeline:
   - name: DucklingEntityExtractor
     dimensions: ["number", "time"]
     url: "http://localhost:8000"
+    timezone: "Asia/Kolkata"
   - name: DIETClassifier
     epochs: 100
   - name: ResponseSelector

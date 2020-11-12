@@ -76,12 +76,23 @@ const TitleBar = ({ title, onClose, onReset }) => {
 }
 
 const MessagePill = ({ text, sender }) => {
+  const lineSeparatedText = []
+  text.split('\n').forEach(splitText => 
+    lineSeparatedText.push(splitText));
   return <div className='chatbot-msg-row'>
     {sender === 'user' ? 
       <div style={{ flex: 1 }}></div> : <></>}
-    <div className={`chatbot-msg-pill-${sender}`}>
-      {text}
-    </div>
+    <p className={`chatbot-msg-pill-${sender}`}>
+    {
+      /* Line separation for consistency with rasa shell */
+      lineSeparatedText.map(rText => {
+        return <>
+          {rText}
+          <br/>
+        </>
+      })
+    }
+    </p>
   </div>
 }
 

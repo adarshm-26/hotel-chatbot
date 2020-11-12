@@ -76,7 +76,7 @@ nlu:
     - make bookings please
     - book [a]{"entity": "number", "value": "1"} [simple](type) room please
     - Can you book five [deluxe](type) rooms
-    - book four [simple](type)[simple](type) rooms
+    - book four [simple](type) rooms
 - intent: cleaning_required
   examples: |
     - I want to have my room cleaned

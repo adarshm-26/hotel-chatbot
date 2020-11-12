@@ -9,6 +9,7 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk.events import ActionExecuted
 
 class ValidateBookingForm(FormValidationAction):
+  """Validator to maintain booking form slot values"""
 
   def name(self) -> Text:
     return 'validate_booking_form'
@@ -111,6 +112,7 @@ class ValidateBookingForm(FormValidationAction):
     return { 'to_date': validated_date }
       
 class ValidateCleaningForm(FormValidationAction):
+  """Validator to maintain cleaning form slot values"""
 
   def name(self) -> Text:
     return 'validate_cleaning_form'
@@ -159,11 +161,11 @@ def convert_to_readable(date, parse_time = False):
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
   ]
 
-  parsed_date = parser.parse(date).astimezone()
+  parsed_date = parser.parse(date)
   day_of_week = days_of_week[parsed_date.weekday()]
   month_name = month_short_names[parsed_date.month-1]
   
-  readable_datetime = "{} {}th {}{}"
+  readable_datetime = "{} {} {}{}"
   time_part = ''
   if parse_time:
     parsed_time = parsed_date.time()
@@ -175,8 +177,11 @@ def convert_to_readable(date, parse_time = False):
   return readable_datetime.format(day_of_week, parsed_date.day, month_name, time_part)
 
 class ActionSaveForm(Action):
+  """Custom action for saving form details into mongoDB"""
 
   MAX_TURNS_TO_SEARCH = 50
+  MONGO_DB_URL = 'mongodb://localhost:27017/'
+  DB_NAME = 'hotel-chatbot'
 
   def name(self) -> Text:
     return 'action_save_form'
@@ -188,8 +193,8 @@ class ActionSaveForm(Action):
     domain: DomainDict,
   ) -> List[Any]:
 
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client['hotel-chatbot']
+    client = MongoClient(self.MONGO_DB_URL)
+    db = client[self.DB_NAME]
 
     coll_name = ''
     document_data = {}
@@ -201,6 +206,7 @@ class ActionSaveForm(Action):
         coll_name = 'bookings'
         document_data.update(tracker.slots)
         del document_data['cleaning_time']
+        del document_data['requested_slot']
         break
       elif name == 'cleaning_form':
         coll_name = 'cleanings'
