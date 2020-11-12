@@ -1,6 +1,8 @@
 from dateutil import parser
 from typing import Text, List, Any, Dict
+from pymongo import MongoClient
 from rasa_sdk import Tracker, FormValidationAction
+from rasa_sdk.interfaces import Action
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
@@ -157,11 +159,11 @@ def convert_to_readable(date, parse_time = False):
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
   ]
 
-  parsed_date = parser.parse(date)
+  parsed_date = parser.parse(date).astimezone()
   day_of_week = days_of_week[parsed_date.weekday()]
   month_name = month_short_names[parsed_date.month-1]
   
-  readable_datetime = "{} the {}th {} {}"
+  readable_datetime = "{} {}th {}{}"
   time_part = ''
   if parse_time:
     parsed_time = parsed_date.time()
@@ -171,3 +173,47 @@ def convert_to_readable(date, parse_time = False):
     time_part += 'PM' if parsed_time.hour >= 12 else 'AM'
 
   return readable_datetime.format(day_of_week, parsed_date.day, month_name, time_part)
+
+class ActionSaveForm(Action):
+
+  MAX_TURNS_TO_SEARCH = 50
+
+  def name(self) -> Text:
+    return 'action_save_form'
+
+  def run(
+    self,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: DomainDict,
+  ) -> List[Any]:
+
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['hotel-chatbot']
+
+    coll_name = ''
+    document_data = {}
+
+    for turn, event in enumerate(reversed(tracker.events)):
+      name = event.get('name')
+      # Check only for the latest form
+      if name == 'booking_form':
+        coll_name = 'bookings'
+        document_data.update(tracker.slots)
+        del document_data['cleaning_time']
+        break
+      elif name == 'cleaning_form':
+        coll_name = 'cleanings'
+        document_data.update({
+          'cleaning_time': tracker.get_slot('cleaning_time')
+        })
+        break
+      # To prevent being stuck in a loop
+      if turn >= self.MAX_TURNS_TO_SEARCH:
+        break
+
+    # Insert into DB only if recent and valid form was found
+    if coll_name:
+      db[coll_name].insert_one(document_data)
+
+    return []

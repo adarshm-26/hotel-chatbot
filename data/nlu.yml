@@ -8,12 +8,10 @@ nlu:
     - hello there
     - good morning
     - good evening
-    - moin
+    - morning
     - hey there
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
     - good afternoon
     - Hello, Good morning
 - intent: goodbye
@@ -28,7 +26,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-    - No, its all good
     - Ok, bye
 - intent: affirm
   examples: |
@@ -44,9 +41,9 @@ nlu:
     - nice
     - superb
     - very well
-    - ok cool
     - okay
     - okay cool
+    - cool, thanks
 - intent: deny
   examples: |
     - no
@@ -55,10 +52,15 @@ nlu:
     - I don't think so
     - don't like that
     - no way
+    - wrong
+    - incorrect
+    - please no
+    - noooooo
     - not really
     - No, its okay
     - no its fine
     - no its okay
+    - No
 - intent: book
   examples: |
     - I would like to make a booking
@@ -73,6 +75,8 @@ nlu:
     - I want to book rooms for 2 please
     - make bookings please
     - book [a]{"entity": "number", "value": "1"} [simple](type) room please
+    - Can you book five [deluxe](type) rooms
+    - book four [simple](type)[simple](type) rooms
 - intent: cleaning_required
   examples: |
     - I want to have my room cleaned
@@ -85,9 +89,10 @@ nlu:
     - Where do i keep the trash
     - I need my room cleaned
     - What about cleaning services?
-    - I am fine, can you schedule cleaning for my room?
+    - can you schedule cleaning for my room?
     - Please clean my room
     - Clean my room please
+    - send someone for cleaning now
 - intent: cleaning_time
   examples: |
     - Can you send someone right now?
@@ -123,6 +128,7 @@ nlu:
     - tomorrow
     - friday probably
     - from day after tomorrow
+    - by friday
 - intent: to_date
   examples: |
     - Till Tuesday next week
@@ -130,6 +136,8 @@ nlu:
     - Until next Sunday
     - By next Thursday
     - on saturday
+    - next week saturday
+    - tomorrow
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -188,6 +196,7 @@ nlu:
     - restaurant closes at ?
     - What are the timings of your restaurant?
     - restuarant timings?
+    - Yeah, can you tell me the restaurant opening closing times?
 - intent: know_breakfast_timings
   examples: |
     - when can i get breakfast?
@@ -212,11 +221,14 @@ nlu:
     - where can i get food?
     - resturant nearby?
     - any restaurants nearby?
-- synonym: a room
+- synonym: '1'
   examples: |
-    - one room
-    - single room
-    - 1 room
+    - a
+- synonym: a
+  examples: |
+    - one
+    - single
+    - 1
 - lookup: type
   examples: |
     - Simple

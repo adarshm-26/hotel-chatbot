@@ -26,6 +26,13 @@ rules:
   - action: utter_iamabot
   - action: utter_bot_abilities
 
+# - rule: Save forms when a form is deactivated successfully
+#   steps:
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: action_save_form
+
 - rule: FAQ Check-in timings
   steps:
   - intent: know_checkin_timings

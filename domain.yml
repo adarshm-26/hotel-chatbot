@@ -2,20 +2,20 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- greet
-- know_restaurant_availability
+- deny
+- from_date
 - to_date
 - book
-- from_date
-- know_checkout_timings
-- deny
 - affirm
+- know_restaurant_availability
+- greet
+- know_restaurant_timings
+- cleaning_required
+- know_checkout_timings
 - number
 - know_checkin_timings
 - type
-- know_restaurant_timings
 - goodbye
-- cleaning_required
 - cleaning_time
 - know_breakfast_availability
 - know_breakfast_timings
@@ -110,6 +110,7 @@ responses:
   utter_breakfast_availability:
   - text: The hotel provides its guests with a free made-to-order breakfast each morning.
 actions:
+- action_save_form
 - utter_affirmation
 - utter_anything_else
 - utter_ask_cleaning_time

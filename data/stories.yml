@@ -33,6 +33,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_booking_details
   - action: utter_anything_else
   - intent: goodbye
@@ -43,6 +44,7 @@ stories:
   - active_loop: booking_form
   - intent: deny
   - active_loop: null
+  - action: action_save_form
   - action: utter_restart_confirmation
   - intent: affirm
   - action: action_restart
@@ -72,6 +74,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_booking_details
   - action: utter_anything_else
   - intent: deny
@@ -105,6 +108,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_booking_details
   - action: utter_anything_else
   - intent: deny
@@ -126,6 +130,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_cleaning_schedule
   - intent: affirm
 
@@ -146,6 +151,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_cleaning_schedule
   - action: utter_anything_else
   - intent: deny
@@ -185,6 +191,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_cleaning_schedule
   - action: utter_anything_else
   - intent: know_checkout_timings
@@ -192,7 +199,7 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_story_1
+- story: booking with chitchat story 1
   steps:
   - intent: book
   - action: booking_form
@@ -226,6 +233,7 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_booking_details
   - action: utter_anything_else
   - intent: know_restaurant_availability
@@ -234,7 +242,7 @@ stories:
   - action: utter_restaurant_timings
   - intent: affirm
 
-- story: interactive_story_1
+- story: booking with chitchat story 2
   steps:
   - intent: greet
   - action: utter_greet
@@ -271,6 +279,99 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_save_form
   - action: utter_booking_details
   - action: utter_anything_else
   - intent: deny
+
+- story: cleaning with chitchat story 1
+  steps:
+  - intent: cleaning_required
+    entities:
+    - time
+  - action: utter_affirmation
+  - action: cleaning_form
+  - active_loop: cleaning_form
+  - slot_was_set:
+    - cleaning_time
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_save_form
+  - action: utter_cleaning_schedule
+  - action: utter_anything_else
+  - intent: know_restaurant_availability
+  - action: utter_restaurant_availability
+  - intent: deny
+
+- story: booking with chitchat story 3
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_bot_abilities
+  - action: utter_what_can_do
+  - intent: book
+    entities:
+    - type
+    - number
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - type
+  - slot_was_set:
+    - number
+  - slot_was_set:
+    - requested_slot: from_date
+  - intent: know_cancellation_policy
+  - action: utter_cancellation_policy
+  - action: booking_form
+  - slot_was_set:
+    - requested_slot: from_date
+  - intent: know_cancellation_steps
+  - action: utter_cancellation_steps
+  - action: booking_form
+  - slot_was_set:
+    - from_date
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_save_form
+  - action: utter_booking_details
+  - action: utter_anything_else
+  - intent: know_restaurant_timings
+  - action: utter_restaurant_timings
+  - intent: affirm
+
+- story: interactive_story_1
+  steps:
+  - intent: book
+    entities:
+    - type: simple
+    - number: 4
+    - type: simple
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - type: Simple
+  - slot_was_set:
+    - number: 4
+  - slot_was_set:
+    - requested_slot: from_date
+  - slot_was_set:
+    - from_date: Thursday 12th Nov
+  - slot_was_set:
+    - requested_slot: to_date
+  - slot_was_set:
+    - to_date: Thursday 12th Nov
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_save_form
+  - action: utter_booking_details
+  - action: utter_anything_else
+  - intent: deny
+  - action: utter_goodbye
