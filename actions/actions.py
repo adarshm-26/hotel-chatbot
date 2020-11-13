@@ -193,33 +193,40 @@ class ActionSaveForm(Action):
     domain: DomainDict,
   ) -> List[Any]:
 
-    client = MongoClient(self.MONGO_DB_URL)
-    db = client[self.DB_NAME]
+    try:
+      client = MongoClient(self.MONGO_DB_URL)
+      # To check if server is online before connecting
+      client.admin.command('ismaster')
+      db = client[self.DB_NAME]
 
-    coll_name = ''
-    document_data = {}
+      coll_name = ''
+      document_data = {}
 
-    for turn, event in enumerate(reversed(tracker.events)):
-      name = event.get('name')
-      # Check only for the latest form
-      if name == 'booking_form':
-        coll_name = 'bookings'
-        document_data.update(tracker.slots)
-        del document_data['cleaning_time']
-        del document_data['requested_slot']
-        break
-      elif name == 'cleaning_form':
-        coll_name = 'cleanings'
-        document_data.update({
-          'cleaning_time': tracker.get_slot('cleaning_time')
-        })
-        break
-      # To prevent being stuck in a loop
-      if turn >= self.MAX_TURNS_TO_SEARCH:
-        break
+      for turn, event in enumerate(reversed(tracker.events)):
+        name = event.get('name')
+        # Check only for the latest form
+        if name == 'booking_form':
+          coll_name = 'bookings'
+          document_data.update(tracker.slots)
+          del document_data['cleaning_time']
+          del document_data['requested_slot']
+          break
+        elif name == 'cleaning_form':
+          coll_name = 'cleanings'
+          document_data.update({
+            'cleaning_time': tracker.get_slot('cleaning_time')
+          })
+          break
+        # To prevent being stuck in a loop
+        if turn >= self.MAX_TURNS_TO_SEARCH:
+          break
 
-    # Insert into DB only if recent and valid form was found
-    if coll_name:
-      db[coll_name].insert_one(document_data)
-
-    return []
+      # Insert into DB only if recent and valid form was found
+      if coll_name:
+        db[coll_name].insert_one(document_data)
+    
+    except Exception:
+      pass
+    
+    finally:
+      return []
